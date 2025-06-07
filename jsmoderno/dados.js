@@ -262,3 +262,24 @@ const resultado = qualEhOEstado(vitorCnh, carolCnh);
 console.log(resultado);
 
 alertarFimDeAula();
+
+// loop para pegar chaves e valores de um objeto (FOR IN)
+// const aluno = {
+//   id: 1,
+//   nome: 'Joana',
+//   endereco: 'Rua lalala',
+// };
+
+// for (let key in aluno) {
+//   console.log(`O campo ${key} tem o valor de ${aluno[key]}`);
+// }
+
+// console.log(Object.entries(aluno));
+
+// for (let i = 0; i < Object.entries(aluno).length; i++) {
+//   console.log(
+//     `O campo ${Object.entries(aluno)[i][0]} tem o valor de ${
+//       Object.entries(aluno)[i][1]
+//     }`
+//   );
+// }
