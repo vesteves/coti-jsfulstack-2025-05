@@ -41,7 +41,7 @@ app.get('/user', (req, res) => {
   if (req.query.name) {
     result =
       result.filter((user) => user.name === req.query.name) ||
-      'Pessoa não existe';
+      'Usuário não encontrado';
   }
 
   res.json({
@@ -50,7 +50,9 @@ app.get('/user', (req, res) => {
 });
 
 app.get('/user/:id', (req, res) => {
-  const result = users.find((user) => user.id === parseInt(req.params.id, 10));
+  const result =
+    users.find((user) => user.id === parseInt(req.params.id, 10)) ||
+    'Usuário não encontrado';
 
   res.json({
     data: result,
