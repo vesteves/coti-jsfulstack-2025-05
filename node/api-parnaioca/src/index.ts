@@ -1,11 +1,18 @@
-const express = require('express');
+import express, { Request, Response } from 'express';
 const app = express();
 const PORT = 8000;
 
-// é obrigatório por esta instrução caso eu queira receber body requisition em JSON
-app.use(express.json());
+interface User {
+  id: number
+  name: string
+  email: string
+  password: string
+}
 
-let users = [
+// Array<User> é a mesma coisa de User[]
+
+app.use(express.json());
+let users: Array<User> = [
   {
     id: 1,
     name: 'Vitor',
@@ -18,27 +25,21 @@ let users = [
     email: 'teste2@teste.com',
     password: 'teste123',
   },
+  {
+    id: 3,
+    name: 'Carol',
+    email: 'teste3@teste.com',
+    password: 'teste123',
+  },
+  // {
+  //   id: 3,
+  //   nome: 'Carol',
+  //   email: 'teste3@teste.com',
+  //   senha: 'teste123',
+  // },
 ];
 
-// RESTFUL API - REST
-// JSON - Linguagem universal para gerenciamento de dados
-/**
- * GET - Coletar informações
- * POST - Criar informações
- * PUT - Atualizar informações
- * DELETE - Remover informações
- *
- * Status Code
- * 200 - OK
- * 400 - Bad Request
- * https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Reference/Status
- *
- * HEADERS
- * Content-Type = Conteúdo da requisição
- * Accept = Como aceito a resposta
- *
- */
-app.get('/user', (req, res) => {
+app.get('/user', (req: Request, res: Response) => {
   let result = users;
   if (req.query.name) {
     result =
@@ -51,7 +52,7 @@ app.get('/user', (req, res) => {
   });
 });
 
-app.get('/user/:id', (req, res) => {
+app.get('/user/:id', (req: Request, res: Response) => {
   const result =
     users.find((user) => user.id === parseInt(req.params.id, 10)) ||
     'Usuário não encontrado';
@@ -61,7 +62,7 @@ app.get('/user/:id', (req, res) => {
   });
 });
 
-app.post('/user', (req, res) => {
+app.post('/user', (req: Request, res: Response) => {
   users.push({
     id: users.length + 1,
     ...req.body,
@@ -71,7 +72,7 @@ app.post('/user', (req, res) => {
   });
 });
 
-app.put('/user/:id', (req, res) => {
+app.put('/user/:id', (req: Request, res: Response) => {
   users = users.map((user) => {
     if (user.id === Number(req.params.id)) {
       return {
@@ -87,7 +88,7 @@ app.put('/user/:id', (req, res) => {
   });
 });
 
-app.delete('/user/:id', (req, res) => {
+app.delete('/user/:id', (req: Request, res: Response) => {
   users = users.filter((user) => user.id !== Number(req.params.id));
 
   res.json({
@@ -95,11 +96,6 @@ app.delete('/user/:id', (req, res) => {
   });
 });
 
-// http://localhost:8000
-// HTTP:// - Procotolo
-// LOCALHOST (ou 127.0.0.1) - Dominio
-// :8000 - Porta
-// /user - Rota
 app.listen(PORT, () => {
-  console.log(`Server ON - port: ${PORT}`);
+  console.log(`API Parnaioca ON - port: ${PORT}`);
 });
