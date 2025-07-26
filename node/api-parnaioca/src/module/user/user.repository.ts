@@ -1,81 +1,28 @@
 import type { User, UserCreate, UserUpdate } from "./user.type";
+import { userModel } from './user.model'
 
-export let users: Array<User> = [
-  {
-    id: 1,
-    name: 'Vitor',
-    email: 'teste1@teste.com',
-    password: 'teste123',
-    createdAt: '2025-07-15T23:59:48.747Z',
-    updatedAt: '2025-07-15T23:59:48.747Z',
-  },
-  {
-    id: 2,
-    name: 'Joana',
-    email: 'teste2@teste.com',
-    password: 'teste123',
-    createdAt: '2025-07-15T23:59:48.747Z',
-    updatedAt: '2025-07-15T23:59:48.747Z',
-  },
-  {
-    id: 3,
-    name: 'Carol',
-    email: 'teste3@teste.com',
-    password: 'teste123',
-    createdAt: '2025-07-15T23:59:48.747Z',
-    updatedAt: '2025-07-15T23:59:48.747Z',
-  },
-  // {
-  //   id: 3,
-  //   nome: 'Carol',
-  //   email: 'teste3@teste.com',
-  //   senha: 'teste123',
-  // },
-];
-
-const getAll = (name?: string) => {
-  let result = users;
+const getAll = async (name?: string) => {
   if (name) {
-    result =
-      result.filter((user) => user.name === name) ||
-      'Usuário não encontrado';
+    return await userModel.find({ name })
   }
 
-  return result
+  return await userModel.find()
 }
 
-const getById = (id: number) => {
-  const result =
-    users.find((user) => user.id === id) ||
-    'Usuário não encontrado';
-
-  return result
+const getById = async (_id: number) => {
+  return await userModel.findById(_id)
 }
 
-const save = (params: UserCreate) => {
-  users.push({
-    id: users.length + 1,
-    createdAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString(),
-    ...params,
-  });
+const save = async (params: UserCreate) => {
+  return await userModel.create(params)
 }
 
-const update = (id: number, params: UserUpdate) => {
-  users = users.map((user) => {
-    if (user.id === id) {
-      return {
-        ...user,
-        ...params,
-        updatedAt: new Date().toISOString(),
-      };
-    }
-    return user;
-  });
+const update = async (_id: number, params: UserUpdate) => {
+  return await userModel.findOneAndUpdate({ _id }, params)
 }
 
-const destroy = (id: number) => {
-  users = users.filter((user) => user.id !== id);
+const destroy = async (_id: number) => {
+  return await userModel.deleteOne({ _id })
 }
 
 export default {

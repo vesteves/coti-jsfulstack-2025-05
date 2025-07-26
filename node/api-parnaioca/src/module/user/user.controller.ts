@@ -3,41 +3,41 @@ import userRepository from './user.repository'
 
 export const router = Router()
 
-router.get('/user', (req: Request, res: Response) => {
-  const result = userRepository.getAll(req.query.name as string)
+router.get('/user', async (req: Request, res: Response) => {
+  const result = await userRepository.getAll(req.query.name as string)
 
   res.json({
     data: result,
   });
 });
 
-router.get('/user/:id', (req: Request, res: Response) => {
+router.get('/user/:id', async (req: Request, res: Response) => {
   const id = parseInt(req.params.id, 10)
-  const result = userRepository.getById(id)
+  const result = await userRepository.getById(id)
 
   res.json({
     data: result,
   });
 });
 
-router.post('/user', (req: Request, res: Response) => {
-  userRepository.save(req.body)
+router.post('/user', async (req: Request, res: Response) => {
+  await userRepository.save(req.body)
 
   res.json({
     msg: 'Usuário criado com sucesso',
   });
 });
 
-router.put('/user/:id', (req: Request, res: Response) => {
-  userRepository.update(Number(req.params.id), req.body)
+router.put('/user/:id', async (req: Request, res: Response) => {
+  await userRepository.update(Number(req.params.id), req.body)
 
   res.json({
     msg: 'Usuário atualizado com sucesso',
   });
 });
 
-router.delete('/user/:id', (req: Request, res: Response) => {
-  userRepository.destroy(Number(req.params.id))
+router.delete('/user/:id', async (req: Request, res: Response) => {
+  await userRepository.destroy(Number(req.params.id))
 
   res.json({
     msg: 'Usuário removido com sucesso',
