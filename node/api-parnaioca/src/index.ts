@@ -3,11 +3,14 @@ dotenv.config()
 import express from 'express';
 import mongoose from 'mongoose'
 import userController from './module/user/user.controller'
+import authController from './module/auth/auth.controller'
+import { authMiddleware } from './middleware/auth.middleware';
 const app = express();
 const PORT = 8000;
 app.use(express.json());
 
-app.use(userController)
+app.use('/user', authMiddleware, userController)
+app.use('/auth', authController)
 
 app.listen(PORT, () => {
   console.log(`API Parnaioca ON - port: ${PORT}`);

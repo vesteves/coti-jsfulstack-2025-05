@@ -3,7 +3,7 @@ import userRepository from './user.repository'
 
 export const router = Router()
 
-router.get('/user', async (req: Request, res: Response) => {
+router.get('/', async (req: Request, res: Response) => {
   const result = await userRepository.getAll(req.query.name as string)
 
   res.json({
@@ -11,33 +11,45 @@ router.get('/user', async (req: Request, res: Response) => {
   });
 });
 
-router.get('/user/:id', async (req: Request, res: Response) => {
-  const id = parseInt(req.params.id, 10)
-  const result = await userRepository.getById(id)
+router.get('/:id', async (req: Request, res: Response) => {
+  const result = await userRepository.getById(req.params.id)
 
   res.json({
     data: result,
   });
 });
 
-router.post('/user', async (req: Request, res: Response) => {
-  await userRepository.save(req.body)
+router.post('/', async (req: Request, res: Response) => {
+  const result = await userRepository.save(req.body)
 
   res.json({
     msg: 'Usuário criado com sucesso',
   });
 });
 
-router.put('/user/:id', async (req: Request, res: Response) => {
-  await userRepository.update(Number(req.params.id), req.body)
+router.put('/:id', async (req: Request, res: Response) => {
+  const result = await userRepository.update(req.params.id, req.body)
+
+  if (result === null) {
+    res.json({
+      msg: 'Nenhum usuário atualizado',
+    });
+    return
+  }
 
   res.json({
     msg: 'Usuário atualizado com sucesso',
   });
 });
 
-router.delete('/user/:id', async (req: Request, res: Response) => {
-  await userRepository.destroy(Number(req.params.id))
+router.delete('/:id', async (req: Request, res: Response) => {
+  const result = await userRepository.destroy(req.params.id)
+  if (result.deletedCount === 0) {
+    res.json({
+      msg: 'Nenhum usuário foi removido',
+    });
+    return
+  }
 
   res.json({
     msg: 'Usuário removido com sucesso',
