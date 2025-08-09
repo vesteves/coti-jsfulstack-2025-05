@@ -24,6 +24,10 @@ const save = async (params: UserCreate): Promise<User> => {
 }
 
 const update = async (_id: string, params: UserUpdate): Promise<User | null> => {
+  if (params.password) {
+    params.password = bcrypt.hashSync(params.password, 10)
+  }
+
   return await userModel.findOneAndUpdate({ _id }, params).lean()
 }
 

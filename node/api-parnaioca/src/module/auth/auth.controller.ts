@@ -3,6 +3,8 @@ import jwt from 'jsonwebtoken'
 import bcrypt from 'bcrypt'
 import userRepository from '../user/user.repository'
 import { authMiddleware } from '../../middleware/auth.middleware'
+import { validateMiddleware } from '../../middleware/validate.middleware'
+import { userCreateSchema } from '../user/user.schema'
 
 const router = Router()
 
@@ -45,6 +47,17 @@ router.post('/login', async (req: Request, res: Response) => {
   res.json({
     token
   })
+})
+
+router.post('/register', validateMiddleware(userCreateSchema), async (req: Request, res: Response) => {
+  const result = await userRepository.save({
+    ...res.locals.validated,
+    isAdmin: false
+  })
+
+  res.json({
+    msg: 'Cliente criado com sucesso',
+  });
 })
 
 router.get('/me', authMiddleware, (req: Request, res: Response) => {

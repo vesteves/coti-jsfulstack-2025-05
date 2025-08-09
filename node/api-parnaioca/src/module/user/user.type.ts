@@ -1,20 +1,9 @@
+import { z } from 'zod'
 import type { DBase } from '../../types/db.type'
+import { userCreateSchema, userUpdateSchema } from './user.schema'
 
-// Array<User> é a mesma coisa de User[]
-interface UserBase {
-  name: string
-  email: string
-  password: string
-}
+export type UserCreate = z.infer<typeof userCreateSchema>
 
-export type User = UserBase & DBase
+export type User = UserCreate & DBase
 
-export type UserCreate = UserBase
-
-export type UserUpdate = Partial<UserBase>
-
-// export interface UserUpdate {
-//   name?: string
-//   email?: string
-//   password?: string
-// }
+export type UserUpdate = z.infer<typeof userUpdateSchema>

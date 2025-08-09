@@ -4,15 +4,20 @@ import { User } from './user.type'
 const userSchema = new mongoose.Schema<User, mongoose.Model<User>>({
   name: {
     type: String,
-    require: true
+    required: true
   },
   email: {
     type: String,
-    require: true
+    required: true
   },
   password: {
     type: String,
-    require: true
+    required: true,
+    select: false
+  },
+  isAdmin: {
+    type: Boolean,
+    default: false
   }
 }, {
   timestamps: true

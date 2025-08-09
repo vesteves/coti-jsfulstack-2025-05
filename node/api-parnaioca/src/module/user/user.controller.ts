@@ -1,5 +1,9 @@
 import { Router, Request, Response } from 'express'
 import userRepository from './user.repository'
+import { z } from 'zod'
+import { validateMiddleware } from '../../middleware/validate.middleware';
+import { userCreateSchema, userUpdateSchema } from './user.schema';
+import { adminMiddleware } from '../../middleware/admin.middleware';
 
 export const router = Router()
 
@@ -19,16 +23,17 @@ router.get('/:id', async (req: Request, res: Response) => {
   });
 });
 
-router.post('/', async (req: Request, res: Response) => {
-  const result = await userRepository.save(req.body)
+router.post('/', adminMiddleware, validateMiddleware(userCreateSchema), async (req: Request, res: Response) => {
+  // camada de dados
+  const result = await userRepository.save(res.locals.validated)
 
   res.json({
     msg: 'Usuário criado com sucesso',
   });
 });
 
-router.put('/:id', async (req: Request, res: Response) => {
-  const result = await userRepository.update(req.params.id, req.body)
+router.put('/:id', adminMiddleware, validateMiddleware(userUpdateSchema), async (req: Request, res: Response) => {
+  const result = await userRepository.update(req.params.id, res.locals.validated)
 
   if (result === null) {
     res.json({
