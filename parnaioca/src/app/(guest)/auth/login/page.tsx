@@ -3,7 +3,7 @@
 import { useState } from 'react';
 
 // CSS-in-JS
-import Field from '@/components/Field';
+import Field from '@/components/atoms/Field';
 
 export const LoginPage = () => {
   const [email, setEmail] = useState('');

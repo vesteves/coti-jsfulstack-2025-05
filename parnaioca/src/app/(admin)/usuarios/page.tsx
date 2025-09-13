@@ -1,17 +1,20 @@
 'use client';
 
+import ButtonCreate from '@/components/atoms/ButtonCreate';
 import Link from 'next/link';
 
-export const UsersPage = () => {
+export const UsuariosPage = () => {
   const pages = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
   return (
     <div>
+      <div>Total de 5 funcionários cadastrados</div>
+      <ButtonCreate />
       <h1>Olá mundo</h1>
 
       {pages.map((page) => (
         <div key={page}>
-          <Link href={`/users/${page}`}>
+          <Link href={`/usuarios/${page}`}>
             Clique aqui para ir para a página {page}
           </Link>
         </div>
@@ -20,4 +23,4 @@ export const UsersPage = () => {
   );
 };
 
-export default UsersPage;
+export default UsuariosPage;
