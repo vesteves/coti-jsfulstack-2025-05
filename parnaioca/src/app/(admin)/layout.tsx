@@ -23,11 +23,17 @@ export default function AdminLayout({
       {loading ? (
         <>Carregando</>
       ) : (
-        <>
-          <Menu email={email} />
-          <Navbar />
-          {children}
-        </>
+        <div>
+          <div className="flex gap-2">
+            <div className="w-[16rem]">
+              <Menu email={email} />
+            </div>
+            <div className="w-full">
+              <Navbar />
+              <div className="p-6">{children}</div>
+            </div>
+          </div>
+        </div>
       )}
     </>
   );

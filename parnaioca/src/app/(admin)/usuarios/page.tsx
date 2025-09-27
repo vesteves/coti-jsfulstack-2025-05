@@ -8,9 +8,10 @@ export const UsuariosPage = () => {
 
   return (
     <div>
-      <div>Total de 5 funcionários cadastrados</div>
-      <ButtonCreate />
-      <h1>Olá mundo</h1>
+      <div className="flex justify-between items-center mb-6">
+        <div>Total de 5 funcionários cadastrados</div>
+        <ButtonCreate />
+      </div>
 
       {pages.map((page) => (
         <div key={page}>
