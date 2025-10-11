@@ -2,6 +2,7 @@ import dotenv from 'dotenv'
 dotenv.config()
 import express from 'express';
 import mongoose from 'mongoose'
+import cors from 'cors'
 import userController from './module/user/user.controller'
 import authController from './module/auth/auth.controller'
 import { authMiddleware } from './middleware/auth.middleware';
@@ -10,6 +11,7 @@ import { adminMiddleware } from './middleware/admin.middleware';
 const app = express();
 const PORT = 8000;
 app.use(express.json());
+app.use(cors())
 
 app.use('/user', authMiddleware, userController)
 app.use('/auth', authController)

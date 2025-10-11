@@ -1,5 +1,8 @@
 'use client';
 
+import Link from 'next/link';
+import { menuItems } from './menuItems';
+
 const Menu = ({ email }: { email: string }) => {
   return (
     <div className="bg-gray-50 h-screen">
@@ -14,26 +17,17 @@ const Menu = ({ email }: { email: string }) => {
 
       <div className="flex min-h-0 flex-1 flex-col gap-2 overflow-auto p-4 h-screen">
         <ul className="flex w-full min-w-0 flex-col gap-1">
-          <li className="flex items-center gap-2 cursor-pointer">
-            <div>icon</div>
-            <span>Dashboard</span>
-          </li>
-          <li className="flex items-center gap-2 cursor-pointer">
-            <div>icon</div>
-            <span>Quartos</span>
-          </li>
-          <li className="flex items-center gap-2 cursor-pointer">
-            <div>icon</div>
-            <span>Usuários</span>
-          </li>
-          <li className="flex items-center gap-2 cursor-pointer">
-            <div>icon</div>
-            <span>Hóspedes</span>
-          </li>
-          <li className="flex items-center gap-2 cursor-pointer">
-            <div>icon</div>
-            <span>Reservas</span>
-          </li>
+          {menuItems &&
+            menuItems.map((item) => {
+              return (
+                <Link key={item.label} href={item.path}>
+                  <li className="flex items-center gap-2 cursor-pointer">
+                    <div>{item.icon}</div>
+                    <span>{item.label}</span>
+                  </li>
+                </Link>
+              );
+            })}
         </ul>
       </div>
 
