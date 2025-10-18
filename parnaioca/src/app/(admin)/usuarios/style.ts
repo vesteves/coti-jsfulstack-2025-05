@@ -2,7 +2,7 @@ import styled from '@emotion/styled'
 import { TableContainer, TableContainerProps } from '@mui/material';
 
 export const Total = styled.div({
-  color: 'red',
+  color: 'green',
   fontSize: '40px'
 })
 
