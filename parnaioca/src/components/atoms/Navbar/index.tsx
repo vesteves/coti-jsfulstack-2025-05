@@ -1,8 +1,18 @@
-const Navbar = () => {
+'use client';
+
+import Drawer from '@/icons/Drawer';
+
+type NavbarProps = {
+  handleDrawerChange: () => void;
+};
+
+const Navbar = ({ handleDrawerChange }: NavbarProps) => {
   return (
     <nav className="border-b px-6 py-3 flex items-center justify-between">
       <div className="flex gap-2">
-        <div>icon</div>
+        <div onClick={() => handleDrawerChange()}>
+          <Drawer />
+        </div>
         <div>Title</div>
       </div>
       <div className="flex gap-2 items-center">
